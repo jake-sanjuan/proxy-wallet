@@ -12,7 +12,7 @@ let contract,
   token3;
 
 
-describe('Proxy Wallet', () => {
+describe('Logic', () => {
   before(async () => {
     const ContractLogic = await ethers.getContractFactory('ContractLogic');
     let contractLogic = await ContractLogic.deploy();
