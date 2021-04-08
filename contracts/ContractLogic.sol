@@ -8,6 +8,7 @@ contract ContractLogic {
 
   function transfer(
     address _tokenAddress,
+    address _from,
     address _to,
     uint amount
   )
@@ -16,6 +17,6 @@ contract ContractLogic {
   {
     IERC20 token = IERC20(_tokenAddress);
     token.approve(address(this), amount); // Might have to be seperate call
-    token.transferFrom(msg.sender, _to, amount);
+    token.transferFrom(_from, _to, amount);
   }
 }

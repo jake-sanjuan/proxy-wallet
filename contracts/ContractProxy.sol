@@ -6,13 +6,20 @@ import "@openzeppelin/contracts/proxy/Proxy.sol";
 
 contract ContractProxy is Proxy, Ownable {
 
-  address private implementationAddr;
+  address public implementationAddr;
 
   constructor(address _implementationAddr) Ownable() {
     implementationAddr = _implementationAddr;
   }
 
   function _implementation() internal view virtual override returns (address) {
+    return implementationAddr;
+  }
+
+  /*
+  * @dev: For testing purposes
+  */
+  function getImplementation() external view returns (address) {
     return implementationAddr;
   }
 }
