@@ -22,10 +22,6 @@ contract ContractProxy is Proxy, Ownable {
    * @dev overridden from Parent contract to make sure that onlyOwner can
    *  use ContractLogic.sol.  This will stop others from being able to transfer
    *  tokens out.
-   * @notice Does not work in test cases, does work when contract is deployed on
-   *  Remix.  This is because the contract that is used in testing is using the
-   *  ABI of the logic contract to be tested as a proxy, that is not the case
-   *  onchain
    */
   fallback() external payable virtual override onlyOwner {
     _fallback();
@@ -35,10 +31,6 @@ contract ContractProxy is Proxy, Ownable {
    * @dev overridden from Parent contract to make sure that onlyOwner can
    *  call and to revert because this is a wallet specifically for ERC20 tokens.
    * This will stop others from being able to transfer tokens out.
-   * @notice Does not work in test cases, does work when contract is deployed on
-   *  Remix.  This is because the contract that is used in testing is using the
-   *  ABI of the logic contract to be tested as a proxy, that is not the case
-   *  onchain
    */
   receive() external payable virtual override onlyOwner {
     revert("Wallet is for ERC20 tokens only");
@@ -46,10 +38,6 @@ contract ContractProxy is Proxy, Ownable {
 
   /**
    * @return implementation address to caller
-   * @notice Does not work in test cases, does work when contract is deployed on
-   *  Remix.  This is because the contract that is used in testing is using the
-   *  ABI of the logic contract to be tested as a proxy, that is not the case
-   *  onchain
    */
   function getImplementation() external view returns (address) {
     return implementationAddr;

@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
  * @title A simple ERC20 token contract
  * @author Jacob San Juan
  * @notice This contract was created to test ERC20 capabilities of
- *  ContractLogic.sol and contractProxy.sol
+ *  ContractLogic.sol and contractProxy.sol.  Used in test/test.js.
  */
 contract Token is ERC20 {
 
