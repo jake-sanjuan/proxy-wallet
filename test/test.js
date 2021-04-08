@@ -2,7 +2,6 @@ const { assert } = require("chai");
 
 let contract,
   contractProxy,
-  contractLogicAddress,
   contractProxyAddress,
   ownerSigner,
   ownerAddr,
@@ -17,13 +16,16 @@ describe('Proxy Wallet', () => {
   before(async () => {
     const ContractLogic = await ethers.getContractFactory('ContractLogic');
     let contractLogic = await ContractLogic.deploy();
-    contractLogicAddress = contractLogic.address;
+    let contractLogicAddress = contractLogic.address;
 
     const ContractProxy = await ethers.getContractFactory('ContractProxy');
     contractProxy = await ContractProxy.deploy(contractLogicAddress);
     contractProxyAddress = contractProxy.address;
 
     contract = ContractLogic.attach(contractProxyAddress);
+
+    ownerSigner = ethers.provider.getSigner(0);
+    ownerAddr = await ownerSigner.getAddress();
   });
   describe('Multiple ERC20 tokens are sent to the contract', () => {
     beforeEach(async() => {
