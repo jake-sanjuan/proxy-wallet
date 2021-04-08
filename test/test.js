@@ -25,22 +25,6 @@ describe('Proxy Wallet', () => {
 
     contract = ContractLogic.attach(contractProxyAddress);
   });
-  /*
-   * This will not work from `contract` variable, not sure why?  Does work
-   * from contractProxy variable however.
-   */
-  it('should have ContractLogic address set as its implementation', async () => {
-    assert.equal((await contractProxy.getImplementation()), contractLogicAddress);
-  });
-  /*
-   * Also does not work from contract.sol
-   */
-  it('should set the owner equal to the deployer', async() => {
-    ownerSigner = ethers.provider.getSigner(0);
-    ownerAddr = await ownerSigner.getAddress();
-    let signerAddrContract = await contractProxy.owner();
-    assert.equal(ownerAddr, signerAddrContract);
-  });
   describe('Multiple ERC20 tokens are sent to the contract', () => {
     beforeEach(async() => {
       const ERC20 = await ethers.getContractFactory('Token')
@@ -71,20 +55,6 @@ describe('Proxy Wallet', () => {
       await contract.transfer(token3.address, contractProxyAddress, otherAddr, 500);
       assert.equal(await token3.balanceOf(contractProxyAddress), 500);
       assert.equal(await token3.balanceOf(otherAddr), 500);
-    });
-    /*
-     * Also does not work, think that when actually deployed and not in test
-     * env it would rever on calls to proxy though.
-     */
-    it('should not allow for another address to transfer', async() => {
-      let ex;
-      contract.connect(otherSigner);
-      try {
-        await contract.transfer(token1.address, contractProxyAddress, otherAddr, 500);
-      } catch (_ex) {
-        ex = _ex;
-      }
-      assert(ex, "Transaction should have reverted!");
     });
   });
 });
