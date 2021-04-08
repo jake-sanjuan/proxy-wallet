@@ -2,7 +2,7 @@ const { assert } = require('chai');
 
 const LOGIC_ADDRESS = '0x605C9B6f969A27982Fe1Be16e3a24F6720A14beD';
 
-let proxy, proxyAddr, owner, ownerAddr, s1, a1;
+let proxy, proxyAddr, owner, ownerAddr, s1;
 
 describe('Proxy', () => {
   before(async () => {
@@ -14,7 +14,6 @@ describe('Proxy', () => {
     ownerAddr = await owner.getAddress();
 
     s1 = ethers.provider.getSigner(1);
-    a1 = await s1.getAddress()
   });
   it('should have the correct address stored as the implementation', async() => {
     assert.equal(await proxy.getImplementation(), LOGIC_ADDRESS);
